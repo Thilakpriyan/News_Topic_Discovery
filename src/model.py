@@ -22,8 +22,18 @@ lda_model = LatentDirichletAllocation(
 )
 
 lda_model.fit(X)
+import joblib
+import os
+
+os.makedirs("models", exist_ok=True)
+
+joblib.dump(lda_model, "models/lda_model.pkl")
+joblib.dump(tfidf, "models/tfidf_vectorizer.pkl")
+joblib.dump(X, "models/doc_term_matrix.pkl")
 
 print("✅ Phase 4 completed: LDA model trained")
 print(type(clean_text))
 print(X.shape)
 print(lda_model.components_.shape)
+
+print("✅ Model and vectorizer saved successfully")
