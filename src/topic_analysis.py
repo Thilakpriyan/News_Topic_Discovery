@@ -45,3 +45,8 @@ if __name__ == "__main__":
     doc_topics = get_dominant_topics(lda_model, X)
     print("\n📌 Dominant topics (first 5 documents):")
     print(doc_topics.head())
+from evaluation import evaluate_lda_model
+from model import lda_model   # your trained model
+from preprocessing import preprocess_texts  # tokenized text
+
+evaluate_lda_model(lda_model, preprocess_texts)
