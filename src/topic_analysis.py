@@ -50,3 +50,8 @@ from model import lda_model   # your trained model
 from preprocessing import preprocess_texts  # tokenized text
 
 evaluate_lda_model(lda_model, preprocess_texts)
+topic_8 = lda_model.components_[7]
+top_words = topic_8.argsort()[:-15:-1]
+
+for i in top_words:
+    print(feature_names[i])

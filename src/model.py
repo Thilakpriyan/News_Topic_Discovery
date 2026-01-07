@@ -17,8 +17,9 @@ X, tfidf = get_features(clean_text)
 
 # PHASE 4: LDA Model Training
 lda_model = LatentDirichletAllocation(
-    n_components=50,
-    random_state=67
+    n_components=10,
+    random_state=42,
+    learning_method='batch'
 )
 
 lda_model.fit(X)

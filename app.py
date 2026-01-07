@@ -13,59 +13,60 @@ st.set_page_config(
 
 st.title("📰 News Topic Prediction System")
 st.markdown(
-    "This system predicts the most relevant topic for a **new news article** "
-    "using a trained **LDA topic model**."
+    "Enter a news paragraph below. "
+    "The system predicts the most relevant topic using a trained LDA model."
 )
 
 # ===============================
-# Load Trained Model
+# Load Model & Vectorizer
 # ===============================
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-MODEL_DIR = os.path.join(BASE_DIR, "models")
+MODEL_DIR = os.path.join(BASE_DIR, "src", "models")
 
 lda_model = joblib.load(os.path.join(MODEL_DIR, "lda_model.pkl"))
 vectorizer = joblib.load(os.path.join(MODEL_DIR, "tfidf_vectorizer.pkl"))
 
+feature_names = vectorizer.get_feature_names_out()
 
 # ===============================
 # Topic Names
 # ===============================
 topic_names = {
-    1: "Politics",
-    2: "Sports",
-    3: "Technology",
-    4: "Business",
-    5: "Health",
-    6: "Entertainment",
-    7: "World News",
-    8: "Education",
-    9: "Science",
-    10: "Economy"
+    1: "Business",
+    2: "International Economy & Trade",
+    3: "Home Entertainment & Media Technology",
+    4: "Online Media, Blogs & Betting",
+    5: "International Sports & Global Events",
+    6: "Movies, Awards & Actors",
+    7: "Social Media, Celebrities & Online Platforms",
+    8: "General News & Mixed Content",
+    9: "Telecommunications & Digital Regulation",
+    10: "Gaming Industry & Financial Markets"
 }
 
 def get_topic_name(topic_id):
     return topic_names.get(topic_id, f"Topic {topic_id}")
 
 # ===============================
-# Inference Function
+# Inference Logic
 # ===============================
-def infer_topics(text):
-    vec = vectorizer.transform([text])
-    probs = lda_model.transform(vec)[0]
+def predict_topics(text):
+    text_vec = vectorizer.transform([text])
+    probs = lda_model.transform(text_vec)[0]
     return probs
 
 # ===============================
-# USER INPUT
+# User Input
 # ===============================
-st.subheader("✍️ Enter News Article Text")
+st.subheader("✍️ Enter News Paragraph")
 
 user_text = st.text_area(
-    "Paste a full news article (minimum 40 words recommended):",
+    "Paste a complete news paragraph (minimum 40 words recommended):",
     height=220
 )
 
 # ===============================
-# PREDICTION
+# Prediction Output
 # ===============================
 if st.button("🔍 Predict Topic"):
 
@@ -73,9 +74,9 @@ if st.button("🔍 Predict Topic"):
         st.warning("⚠ Please enter at least 40 words for better prediction.")
         st.stop()
 
-    probs = infer_topics(user_text)
+    probs = predict_topics(user_text)
 
-    # Show Top-3 Topics
+    # Show Top-3 topics
     top_topics = np.argsort(probs)[-3:][::-1]
 
     st.success("✅ Predicted Topics")
@@ -86,8 +87,3 @@ if st.button("🔍 Predict Topic"):
             f"**Topic {topic_id} ({get_topic_name(topic_id)})** "
             f"→ Probability: {probs[idx]:.3f}"
         )
-
-    # Top words of best topic
-    best_topic = top_topics[0]
-    st.subheader("🔑 Keywords of Predicted Topic")
-

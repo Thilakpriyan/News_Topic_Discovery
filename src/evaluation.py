@@ -65,3 +65,8 @@ if __name__ == "__main__":
         tokenized_texts,
         feature_names
     )
+topic_8 = lda_model.components_[7]
+top_words = topic_8.argsort()[:-15:-1]
+
+for i in top_words:
+    print(feature_names[i])
