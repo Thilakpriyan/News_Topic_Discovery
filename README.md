@@ -1,166 +1,117 @@
-📰 News Topic Discovery & Prediction System
+News Topic Discovery and Prediction System
+1. Project Description
 
-An unsupervised machine learning project that discovers hidden topics from news articles using Latent Dirichlet Allocation (LDA) and predicts the most relevant topic for new user-provided news paragraphs through a Streamlit web application.
+This project implements a News Topic Discovery and Prediction system using unsupervised machine learning techniques. The system learns hidden topics from a collection of news articles and predicts the most relevant topic for a new, unseen paragraph provided by the user.
 
-📌 Project Overview
+The project does not rely on labeled data. Instead, it uses Latent Dirichlet Allocation (LDA) to identify patterns in word usage and group documents based on similar themes.
 
-In the modern digital era, large volumes of textual data such as news articles, blogs, and reports are generated every day. Manually organizing and understanding these documents is time-consuming and inefficient.
+2. Dataset
 
-This project implements an automated News Topic Discovery and Prediction system using unsupervised machine learning. The system learns latent topics from a news dataset and allows users to input a new paragraph to identify its most relevant topic based on learned word patterns.
+The project uses a news article dataset containing multiple categories of news content. The dataset is used only for training and analysis purposes. No labels are required for model training.
 
-The project focuses on topic discovery, interpretability, and real-time inference, without relying on labeled data or GPU-intensive models.
+3. Project Workflow
 
-🎯 Objectives
+The project is implemented in multiple phases, each representing a key step in building a topic modeling system.
 
-Automatically discover hidden topics from large text datasets
+4. Phase 1: Problem Understanding and Dataset Preparation
 
-Eliminate the need for manual labeling
+In this phase, the concept of topic modeling is studied and a suitable news dataset is selected. The dataset structure and size are analyzed to ensure it is appropriate for unsupervised learning.
 
-Apply unsupervised machine learning techniques
+Output:
+Raw dataset ready for preprocessing.
 
-Interpret topics using keyword analysis
+5. Phase 2: Text Preprocessing
 
-Predict topics for unseen user input text
+Raw text data cannot be used directly for machine learning. Therefore, natural language processing techniques are applied to clean and normalize the text.
 
-Build a clean and user-friendly web interface
+Steps performed:
 
-🧩 Project Phases
-🔹 Phase 1: Problem Understanding & Dataset Collection
+Convert text to lowercase
 
-Studied topic modeling concepts
+Remove punctuation and special characters
 
-Selected a news dataset (BBC News articles)
+Remove stopwords
 
-Analyzed dataset size and structure
+Tokenize text into words
 
-Output: Dataset ready for preprocessing
+Apply lemmatization
 
-🔹 Phase 2: Data Preprocessing (NLP)
+Output:
+Cleaned and normalized text data.
 
-Converted text to lowercase
+6. Phase 3: Feature Extraction
 
-Removed punctuation and special characters
+Machine learning models require numerical input. In this phase, textual data is converted into numerical form using TF-IDF vectorization.
 
-Removed stopwords
+Output:
+Document–Term Matrix representing the importance of words in documents.
 
-Performed tokenization and lemmatization
+7. Phase 4: Model Training
 
-Why:
-Raw text is noisy and cannot be directly used by ML models.
+Latent Dirichlet Allocation (LDA) is trained using the document–term matrix. The model is configured with 10 topics to ensure better interpretability and reduced topic overlap.
 
-Output: Clean and normalized text data
+Although LDA is not a predictive model in the traditional sense, training is required to learn the latent topic distributions from the dataset.
 
-🔹 Phase 3: Feature Extraction
+Output:
+Trained LDA topic model.
 
-Converted text into numerical form using TF-IDF Vectorization
+8. Phase 5: Topic Extraction and Interpretation
 
-Why:
-Machine learning models operate only on numerical data.
+After training, the model produces a set of topics, each represented by a list of important keywords. These keywords are analyzed manually to understand the theme of each topic.
 
-Output: Document–Term Matrix
+Since the model is unsupervised, topic names are assigned based on keyword interpretation rather than predefined labels.
 
-🔹 Phase 4: Model Training
+Output:
+Interpreted and named topics.
 
-Trained Latent Dirichlet Allocation (LDA) model
+9. Phase 6: Model Evaluation
 
-Used 10 topics (n_components = 10) for better interpretability
+Traditional accuracy metrics are not applicable because no ground-truth labels exist. Instead, evaluation is performed using:
 
-Model trained in an unsupervised manner
+Topic coherence (qualitative analysis)
 
-Output: Trained topic discovery model
+Human interpretability of keywords
 
-🔹 Phase 5: Topic Extraction & Interpretation
+Distribution of topics across documents
 
-Extracted top keywords for each topic
+Output:
+Validated topic quality.
 
-Analyzed word distributions
+10. Phase 7: Visualization and Analysis
 
-Manually assigned topic names based on dominant keywords
+To understand the model behavior, offline visualizations are created. These include:
 
-Important Note:
-Since LDA is unsupervised, topic labels are inferred by humans, not learned by the model.
+Bar charts of top keywords per topic
 
-🔹 Phase 6: Model Evaluation
+Word clouds for topic interpretation
 
-Evaluated using:
+Document–topic distribution analysis
 
-Topic coherence (qualitative)
+These visualizations are used only for analysis and are not part of the deployed web application.
 
-Human interpretability
+Output:
+Visual insights into discovered topics.
 
-Accuracy is not applicable due to lack of ground-truth labels
+11. Phase 8: Web Application for Topic Prediction
 
-Output: Validated topic quality
+A Streamlit web application is developed to allow users to input a new news paragraph. The trained LDA model predicts the most relevant topic for the input text.
 
-🔹 Phase 7: Visualization & Analysis (Offline)
+The web interface focuses only on prediction and does not display dataset visualizations.
 
-Visualized:
+Output:
+User-input topic prediction system.
 
-Top keywords per topic (bar charts)
+12. Final Topic Naming
 
-Word clouds
+Topics are manually named based on dominant keywords extracted from the LDA model. The topic names reflect the underlying patterns learned by the model rather than strict predefined categories.
 
-Document–topic distributions
-
-Used Matplotlib and WordCloud
-
-Purpose:
-To understand and interpret discovered topics, not for prediction.
-
-🔹 Phase 8: Web Application (Prediction Only)
-
-Built a Streamlit web app
-
-Users can input a new news paragraph
-
-App predicts top matching topics with probabilities
-
-Displays keywords of the predicted topic for explainability
-
-⚠ Dataset visualizations are not shown in the web app.
-
-🧠 Final Topic Naming (Based on Keyword Analysis)
-Topic ID	Assigned Name
-Topic 1	Movies, Awards & Actors
-Topic 2	International Economy & Trade
-Topic 3	Home Entertainment & Media Technology
-Topic 4	Online Media, Blogs & Betting
-Topic 5	International Sports & Global Events
-Topic 6	Sports & Popular Culture
-Topic 7	Social Media, Celebrities & Online Platforms
-Topic 8	General News & Mixed Content
-Topic 9	Telecommunications & Digital Regulation
-Topic 10	Gaming Industry & Financial Markets
-
-🌐 Web Application Features
-
-Text input for new news paragraphs
-
-Topic prediction using trained LDA model
-
-Displays Top-3 matching topics with probabilities
-
-Clean and minimal UI
-
-Designed for real-time inference only
-
-🛠 Technologies Used
-Category	Tools
-Language	Python
-NLP	NLTK
-ML Model	Scikit-learn (LDA)
-Vectorization	TF-IDF
-Visualization	Matplotlib, WordCloud
-Web App	Streamlit
-
-📂 Project Structure
+13. Project Structure
 News_Topic_Discovery/
 │
-├── app.py                    # Streamlit web app (prediction only)
-│
+├── app.py                  # Streamlit application for prediction
 ├── src/
-│   ├── visualization.py      # Phase 7 offline analysis
-│   ├── topic_analysis.py     # Topic keyword extraction
+│   ├── visualization.py    # Offline topic visualization
+│   ├── topic_analysis.py   # Topic keyword extraction
 │   └── models/
 │       ├── lda_model.pkl
 │       ├── tfidf_vectorizer.pkl
@@ -169,11 +120,19 @@ News_Topic_Discovery/
 ├── data/
 │   └── raw/
 │
-├── README.md
+└── README.md
 
-▶ How to Run the Project
-🔹 Run the Web App
+14. How to Run the Project
+
+Run the web application:
+
 streamlit run app.py
 
-🔹 Run Offline Visualization
+
+Run offline visualization:
+
 python src/visualization.py
+
+15. Conclusion
+
+This project demonstrates how unsupervised learning techniques can be applied to analyze and organize large collections of textual data. Despite the absence of labeled data, the system is able to discover meaningful topics and provide real-time topic prediction for new documents
