@@ -38,3 +38,9 @@ print(X.shape)
 print(lda_model.components_.shape)
 
 print("✅ Model and vectorizer saved successfully")
+feature_names = tfidf.get_feature_names_out()
+
+for idx, topic in enumerate(lda_model.components_):
+    print(f"\nTopic {idx + 1}:")
+    print([feature_names[i] for i in topic.argsort()[:-11:-1]])
+

@@ -32,12 +32,13 @@ vectorizer = joblib.load(os.path.join(MODEL_DIR, "tfidf_vectorizer.pkl"))
 # Topic Names
 # ===============================
 topic_names = {
-    1: "Politics",
-    2: "Sports",
-    3: "Business",
-    4: "Technology",
-    5: "Entertainment"
+    1: "Technology",
+    2: "Business / Economy",
+    3: "Sports",
+    4: "Sports (Athletics)",
+    5: "General News / Politics / Entertainment"
 }
+
 
 
 def get_topic_name(topic_id):
