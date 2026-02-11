@@ -13,6 +13,7 @@ st.set_page_config(
 
 st.title("📰 News Topic Prediction System")
 st.markdown(
+
     "This system predicts the most relevant topic for a **new news article** "
     "using a trained **LDA topic model**."
 )
@@ -33,15 +34,11 @@ vectorizer = joblib.load(os.path.join(MODEL_DIR, "tfidf_vectorizer.pkl"))
 topic_names = {
     1: "Politics",
     2: "Sports",
-    3: "Technology",
-    4: "Business",
-    5: "Health",
-    6: "Entertainment",
-    7: "World News",
-    8: "Education",
-    9: "Science",
-    10: "Economy"
+    3: "Business",
+    4: "Technology",
+    5: "Entertainment"
 }
+
 
 def get_topic_name(topic_id):
     return topic_names.get(topic_id, f"Topic {topic_id}")
