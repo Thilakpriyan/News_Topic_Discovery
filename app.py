@@ -32,17 +32,13 @@ feature_names = vectorizer.get_feature_names_out()
 # Topic Names
 # ===============================
 topic_names = {
-    1: "Business",
-    2: "International Economy & Trade",
-    3: "Home Entertainment & Media Technology",
-    4: "Online Media, Blogs & Betting",
-    5: "International Sports & Global Events",
-    6: "Movies, Awards & Actors",
-    7: "Social Media, Celebrities & Online Platforms",
-    8: "General News & Mixed Content",
-    9: "Telecommunications & Digital Regulation",
-    10: "Gaming Industry & Financial Markets"
+    1: "Technology",
+    2: "Business / Economy",
+    3: "Sports",
+    4: "Sports (Athletics)",
+    5: "General News / Politics"
 }
+
 
 def get_topic_name(topic_id):
     return topic_names.get(topic_id, f"Topic {topic_id}")
@@ -87,3 +83,5 @@ if st.button("🔍 Predict Topic"):
             f"**Topic {topic_id} ({get_topic_name(topic_id)})** "
             f"→ Probability: {probs[idx]:.3f}"
         )
+st.write("Model shape:", lda_model.components_.shape)
+
